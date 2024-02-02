@@ -1,0 +1,40 @@
+{
+    "snapshot_root": "/tmp/backup/",
+    "no_create_root": 1,
+    "cmd_cp": "/bin/cp",
+    "cmd_rm": "/bin/rm",
+    "cmd_rsync": "/usr/bin/rsync",
+    "cmd_ssh": "/usr/bin/ssh",
+    "cmd_logger": "/usr/bin/logger",
+    "cmd_du": "/usr/bin/du",
+    "interval": {
+      "hourly": 6,
+      "daily": 7,
+      "weekly": 4,
+      "monthly": 12,
+      "yearly": 2
+    },
+    "verbose": 2,
+    "loglevel": 3,
+    "logfile": "/var/log/rsnapshot",
+    "lockfile": "/var/run/rsnapshot.pid",
+    "ssh_args": "-o BatchMode=yes",
+    "include": [
+      "/path/to/include/file1",
+      "/path/to/include/file2"
+    ],
+    "exclude": [
+      "/path/to/exclude/file1",
+      "/path/to/exclude/file2"
+    ],
+    "include_file": "/path/to/include/file",
+    "exclude_file": "/path/to/exclude/file",
+    "backup": [
+      {
+        "source": "/home/pi/",
+        "destination": "pi-rsync/",
+        "options": ["incremental"]
+      }
+    ]
+  }
+  
