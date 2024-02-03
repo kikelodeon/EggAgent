@@ -23,6 +23,10 @@ namespace EggBackup
         {
             _logger.Warning($"{DateTime.Now:HH:mm:ss} - WARNING - {message}");
         }
+        public static void LogSuccess(string message)
+        {
+            _logger.Warning($"{DateTime.Now:HH:mm:ss} - SUCCESS - {message}");
+        }
 
         public static void LogCritical(string message)
         {
