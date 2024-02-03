@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EggBackup")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f2d9b44ef3e01937b7078c5f46658b2e46e28e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("EggBackup")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EggBackup")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,22 +1,23 @@
 using System;
 using System.Collections.Generic;
-
-class HelpCommand
+namespace EggBackup
 {
-    static Dictionary<char, ConsoleColor> mapping = new Dictionary<char, ConsoleColor>
+    class HelpCommand
     {
-        ['0'] = ConsoleColor.Green,
-        ['1'] = ConsoleColor.DarkGray,
-        ['2'] = ConsoleColor.Cyan,
-        ['3'] = ConsoleColor.Blue,
-        ['4'] = ConsoleColor.DarkBlue,
-        ['5'] = ConsoleColor.DarkRed,
-        ['6'] = ConsoleColor.Yellow,
-        ['7'] = ConsoleColor.Magenta,
-        ['8'] = ConsoleColor.DarkBlue,
-        ['9'] = ConsoleColor.White
-    };
-    private const string helpMessageText = @"
+        static Dictionary<char, ConsoleColor> mapping = new Dictionary<char, ConsoleColor>
+        {
+            ['0'] = ConsoleColor.Green,
+            ['1'] = ConsoleColor.DarkGray,
+            ['2'] = ConsoleColor.Cyan,
+            ['3'] = ConsoleColor.Blue,
+            ['4'] = ConsoleColor.DarkBlue,
+            ['5'] = ConsoleColor.DarkRed,
+            ['6'] = ConsoleColor.Yellow,
+            ['7'] = ConsoleColor.Magenta,
+            ['8'] = ConsoleColor.DarkBlue,
+            ['9'] = ConsoleColor.White
+        };
+        private const string helpMessageText = @"
      .&&&&&&&&&&&&&&*          &&&&&&&&&&&&&&&    ╔══════════════════════════════════════════════╗
      .&&&&&&&&&&(                  &&&&&&&&&&&    ║                  Egg Backup                  ║
      .&&&&&&&&        *******,       %&&&&&&&&    ║══════════════════════════════════════════════║
@@ -37,7 +38,7 @@ class HelpCommand
      .&&&&&&&&&            &&&&&&&# .&&&&&&&&&    ║                   Release date: January 2024 ║
      .&&&&&&&&&&&&&&           .&&&&&&&&&&@EGG    ╚══════════════════════════════════════════════╝
      ";
-    private const string helpMessageColors = @"
+        private const string helpMessageColors = @"
      0555555555555221          222555555555555    555555555555555555555555555555555555555555555555
      055555555321                  22555555555    577777777777777777777777777777777777777777777775
      055555522        00000000       225555555    555555555555555555555555555555555555555555555555
@@ -59,23 +60,24 @@ class HelpCommand
      055555555554222           322255555557666    555555555555555555555555555555555555555555555555
      ";
 
-    public static void Execute()
-    {
-        string[] textLines = helpMessageText.Split('\n');
-        string[] colorLines = helpMessageColors.Split('\n');
-
-        for (int j = 0; j < textLines.Length; j++)
+        public static void Execute()
         {
-            for (int i = 0; i < textLines[j].Length; i++)
-            {
-                char number = colorLines[j][i];
-                ConsoleColor color = mapping.ContainsKey(number) ? mapping[number] : ConsoleColor.White;
-                Console.ForegroundColor = color;
-                Console.Write(textLines[j][i]);
-                Console.ResetColor();
-            }
+            string[] textLines = helpMessageText.Split('\n');
+            string[] colorLines = helpMessageColors.Split('\n');
 
-            Console.WriteLine(); // Move to the next line after completing each line.
+            for (int j = 0; j < textLines.Length; j++)
+            {
+                for (int i = 0; i < textLines[j].Length; i++)
+                {
+                    char number = colorLines[j][i];
+                    ConsoleColor color = mapping.ContainsKey(number) ? mapping[number] : ConsoleColor.White;
+                    Console.ForegroundColor = color;
+                    Console.Write(textLines[j][i]);
+                    Console.ResetColor();
+                }
+
+                Console.WriteLine(); // Move to the next line after completing each line.
+            }
         }
     }
 }

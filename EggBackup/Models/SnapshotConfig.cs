@@ -1,43 +1,90 @@
+using System.Text.Json;
+
 namespace EggBackup
 {
-    public class EggBackupSnapshotConfig
+    public class SnapshotConfig
     {
-        public string SnapshotRoot { get; set; } =null!;
-        public int NoCreateRoot { get; set; }
-        public string CmdCp { get; set; } =null!;
-        public string CmdRm { get; set; } =null!;
-        public string CmdRsync { get; set; } =null!;
-        public string CmdSsh { get; set; } =null!;
-        public string CmdLogger { get; set; } =null!;
-        public string CmdDu { get; set; } =null!;
-        public Dictionary<string, int> Interval { get; set; } =null!;
-        public int Verbose { get; set; }
-        public int LogLevel { get; set; }
-        public string LogFile { get; set; } =null!;
-        public string LockFile { get; set; } =null!;
-        public string SshArgs { get; set; } =null!;
-        public List<string> Include { get; set; } =null!;
-        public List<string> Exclude { get; set; } =null!;
-        public string IncludeFile { get; set; } =null!;
-        public string ExcludeFile { get; set; } =null!;
-        public BackupConfiguration Backup { get; set; } =null!;
-
-        public static EggBackupSnapshotConfig? LoadConfiguration(string filePath)
+        private string filePath {get;set;} = null!;
+        public string GetFilePath()
         {
-            string json = File.ReadAllText(filePath);
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<EggBackupSnapshotConfig>(json);
+            return filePath;
         }
+        void SetFilePath(string filePath)
+        {
+            this.filePath = filePath;
+        }
+        public static string GetConfigPathLocation()
+        {
+            return Path.Combine("/", ApplicationConfig.RootAppFolder, ApplicationConfig.ApplicationName, ApplicationConfig.ApplicationDataFolderName, ApplicationConfig.SnapshotConfigurationsFolderName);
+        }
+
+        public static List<SnapshotConfig> GetAllConfigFilesList()
+        {
+            string configPath = GetConfigPathLocation();
+            if (!Directory.Exists(configPath))
+            {
+                Console.WriteLine($"Config directory '{configPath}' not found.");
+                return new();
+            }
+            string[] files = Directory.GetFiles(configPath);
+            List<SnapshotConfig> configs = files.Select(file => Load(file)).ToList();
+            return configs;
+        }
+        public string Name { get; set; } = null!;
+        public BackupConfiguration Backup { get; set; } = null!;
+        public List<SnapshotResult> Log { get; set; } = null!;
+        public bool IsValid()
+        {
+            return !string.IsNullOrEmpty(Name);
+        }
+        public static SnapshotConfig Load(string filePath)
+        {
+            string configJson = File.ReadAllText(filePath);
+
+            try
+            {
+                SnapshotConfig? config = JsonSerializer.Deserialize<SnapshotConfig>(configJson);
+
+                if (config == null || !config.IsValid())
+                {
+                    throw new Exception("Invalid or incomplete configuration file.");
+                }
+                config.SetFilePath(filePath);
+                return config;
+            }
+            catch (JsonException ex)
+            {
+                throw new Exception($"Error parsing configuration file: {ex.Message}");
+            }
+        }
+        public override string ToString()
+        {
+            // Override ToString to provide a formatted string representation of DDNSConfig
+            return $"Name={Name}, ......" + Backup.ToString(); ;
+        }
+
         public void Save(string filePath)
         {
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(filePath, json);
         }
     }
-
+    public class SnapshotResult
+    {
+        public bool Success;
+        public DateTime StartTime;
+        public DateTime EndTime;
+        public string? ErrorMessage;
+    }
     public class BackupConfiguration
     {
-        public string Source { get; set; } =null!;
-        public string Destination { get; set; } =null!;
-        public List<string> Options { get; set; } =null!;
+        public string Source { get; set; } = null!;
+        public string Destination { get; set; } = null!;
+        public List<string> Options { get; set; } = null!;
+        public override string ToString()
+        {
+            // Override ToString to provide a formatted string representation of DDNSConfig
+            return $"Source={Source},Source={Destination},Options={string.Join(", ", Options)}";
+        }
     }
 }
