@@ -1,9 +1,0 @@
-{
-    "Name":"raspberry",
-    "Backup": {
-      "Source": "/home/remoteuser/Downloads",
-      "Destination": "/mnt/winshare/snapshots/raspberry",
-      "Ooptions": ["incremental"]
-    }
-  }
-  

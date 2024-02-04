@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/EggBackup/EggBackup.csproj"
+                "${workspaceFolder}/EggAgent/EggAgent.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
