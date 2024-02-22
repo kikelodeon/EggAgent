@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EggAgent")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be70aa0c4f20f953efc83288cd77170c153e2362")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2b54da130e68b699c51742e9ea4ce311263f794")]
 [assembly: System.Reflection.AssemblyProductAttribute("EggAgent")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EggAgent")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
